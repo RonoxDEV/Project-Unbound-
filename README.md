@@ -1,6 +1,4 @@
-Here is the Technical Development Report (DevLog) translated into English.
-
-This document chronologically summarizes all major obstacles encountered during the creation of the "Project Unbound" kernel and how they were resolved. It is perfect for a GitHub Wiki, a dev blog, or a video script.
+Here is the Technical Development Report (DevLog) 
 
 📂 Project Unbound: Incident Report & Technical Solutions
 1. The "Split-Source" Hell (Compilation Error)
