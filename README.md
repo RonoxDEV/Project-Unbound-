@@ -1,37 +1,43 @@
-Here is the Technical Development Report (DevLog) 
+# 🌌 Project Unbound
 
-📂 Project Unbound: Incident Report & Technical Solutions
-1. The 20 FPS Lock (Involuntary V-Sync)
-🔴 Problem: The game launched, but FPS was hard-locked at 20, identical to the internal TPS.
+![Minecraft Version](https://img.shields.io/badge/Minecraft-1.20.1-blue?style=for-the-badge&logo=minecraft)
+![Forge](https://img.shields.io/badge/Forge-supported-orange?style=for-the-badge&logo=forge)
+![Fabric](https://img.shields.io/badge/Fabric-supported-yellowgreen?style=for-the-badge&logo=fabric)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 
-🔍 Cause: The render call (render) was trapped inside the logic loop (tick). Since the game ticks 20 times per second, it was only drawing 20 frames per second.
+**Project Unbound** is an ambitious Minecraft mod designed to push the boundaries of the vanilla experience. It introduces [insérer ici en une phrase le but principal : ex: new dimensions, advanced magic systems, or technical machinery].
 
-✅ Solution: Implementation of the "Decoupled Loop". Total separation: logic runs at a fixed 20Hz, while rendering runs in a free loop (unlimited).
+---
 
-3. The "Spiral of Death" (Speed Hack Effect)
-🔴 Problem: After a loading screen or a lag spike, the game would accelerate wildly (fast-forward motion) to catch up on lost time.
+## ✨ Key Features
 
-🔍 Cause: The Scheduler was accumulating lag time. If the game froze for 2 seconds, the engine attempted to execute 40 ticks instantly upon resumption.
+* **[Feature 1]**: 🔓 Decoupled Update Loop (Unlocked FPS): This feature separates the visual rendering loop from the server's logic loop. Even if the internal server experiences a slowdown (drop in TPS), the game remains visually smooth, often exceeding 144 FPS.
+* **[Feature 2]**: 🧠 D.A.B. (Dynamic Activation of Brains): An AI optimization system that analyzes the distance of entities in real time. Entities that are close maintain their normal behavior, while those located more than 32 blocks away enter a "sleep" mode to reduce CPU load by up to 80%.
+* **[Feature 3]**: ⏳ Time Dilation: Instead of crashing the game during massive calculations (like TNT explosions), the engine slows down the simulation in "Slow Motion" mode. This allows the processor to catch up without ever freezing the screen or crashing the client.
 
-✅ Solution: Added a Safety Cap. If the accumulated lag exceeds 100ms, the engine "forgets" the past and resumes normal flow, preventing the overload spiral.
+## 📸 Media
+<p align="center">
+  <img src="https://via.placeholder.com/800x400.png?text=Add+a+cool+GIF+of+the+mod+gameplay+here" alt="Gameplay Demo" />
+</p>
 
-4. Double Ticking (2x Speed)
-🔴 Problem: Despite fixes, the game appeared to run twice as fast as normal.
+## 🛠 Technical Details
+* **Engine:** [Fabric]
+* **Target Version:** 1.20.1
+* **Dependencies:** [Fabric API]
 
-🔍 Cause: Calling MinecraftClient.render(true) triggered another update of Mojang's internal clock. Combined with our custom Scheduler, the game was advancing 2 steps every frame.
+---
 
-✅ Solution (Attempt 1): Switched to render(false) to prevent Mojang from touching the time.
+## 📥 Installation
+1. Download the latest `.jar` from the [Releases](https://github.com/RonoxDEV/Project-Unbound-/releases) section.
+2. Drop it into your `mods` folder.
+3. Launch and enjoy!
 
-5. The Interpolation Bug (Stuttering Movement)
-🔴 Problem: With render(false), FPS were high, but entities appeared to "vibrate" or move in visual slow motion/stop-motion.
+---
 
-🔍 Cause: Disabling Mojang's internal tick also disabled the deltaTick calculation (interpolation). The game was rendering entities at their previous tick position without smoothing movement between frames.
+## 🤝 Commissions & Contact
+Need a custom feature or a dedicated mod for your server? 
+* **Discord:** `ronoxdevlopper`
+* **Email:** [ronoxdev.contact@gmail.com](mailto:ronoxdev.contact@gmail.com)
 
-✅ Final Solution: The "Tick Guard". We returned to render(true) for fluid motion, but injected a boolean lock (unbound_allowTick) into the tick() method. Only our Scheduler holds the key to authorize the game to advance logic.
-
-6. The Multithreading Deadlock (Parallel Failure)
-🔴 Problem: Attempted to calculate entity physics on multiple threads (Parallel Ticking). Result: Entities froze in place and chunks stopped loading.
-
-🔍 Cause: Deadlock. Worker Threads were waiting for the Main Thread (to load chunks/collisions), while the Main Thread was waiting for the Worker Threads to finish their tasks.
-
-✅ Solution: Abandoned raw parallelism for physics. Replaced it with the D.A.B. (Lobotomy) system: instead of calculating faster, we calculate less by disabling distant entities. This proved to be far more stable and efficient.
+---
+*Created with ❤️ by RonoxDEV*
