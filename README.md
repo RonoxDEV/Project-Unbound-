@@ -4,7 +4,7 @@
 ![Fabric](https://img.shields.io/badge/Fabric-supported-yellowgreen?style=for-the-badge&logo=fabric)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 
-**Project Unbound** is an ambitious Minecraft mod designed to push the boundaries of the vanilla experience. It introduces [insérer ici en une phrase le but principal : ex: new dimensions, advanced magic systems, or technical machinery].
+**Project Unbound** is an ambitious Minecraft mod designed to push the boundaries of the vanilla experience.
 
 ---
 
